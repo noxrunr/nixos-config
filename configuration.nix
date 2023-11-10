@@ -38,7 +38,7 @@
     hardware.cpu.amd.updateMicrocode = true;
 
     # Enable Hyprland (Wayland compositor) from nixpkgs
-    services.hyprland.enable = true;
+    programs.hyprland.enable = true;
 
     # Create user/s
     users.users.erik = {
