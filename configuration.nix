@@ -13,7 +13,7 @@
     # GRUB bootloader configuration.
     boot.loader.grub = {
         enable = true; # Enable GRUB bootloader.
-        device = "/dev/sda"; # Replace with the device where GRUB should be installed, typically the boot drive.
+        device = "/dev/sda1"; # Replace with the device where GRUB should be installed, typically the boot drive.
     };
 
     # Network configuration
