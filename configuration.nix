@@ -71,7 +71,6 @@
         neovim
         kitty
         direnv
-        vscode
         firefox
     ];
 
