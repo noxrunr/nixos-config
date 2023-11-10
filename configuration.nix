@@ -41,7 +41,7 @@
     services.xserver.videoDrivers = [ "nouveau" "amdgpu" "intel" "vesa"]; # List of graphics drivers to support various GPUs.
 
     # Kernel modules for filesystem and virtualization
-    boot.initrd.availableKernelModules = [ "xfs" "ntfs-3g" "btrfs" "vfat" "ext4"]; # Filesystem modules for initial ramdisk.
+    boot.initrd.availableKernelModules = [ "xfs" "btrfs" "vfat" "ext4"]; # Filesystem modules for initial ramdisk.
     boot.kernelModules = [ "kvm-intel" "kvm-amd" "acpi_call" ]; # Modules for virtualization and power management.
 
     # CPU microcode updates
