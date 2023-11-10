@@ -2,7 +2,7 @@
 
 {
 
-    imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal> ];
+    # imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal> ];
 
     # Network configuration
     networking.hostName = "coldnixos";
