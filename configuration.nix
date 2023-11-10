@@ -1,92 +1,91 @@
 { config, pkgs, ... }:
 
 {
+    # System state version: Important for ensuring compatibility and stability over upgrades.
+    system.stateVersion = "23.05"; # Set to the version of NixOS being installed.
 
-    # imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal> ];
-
-    system.stateVersion = "23.05"; # Adjust according to your NixOS version
-
+    # Filesystem setup for the root partition.
     fileSystems."/" = {
-        device = "/dev/disk/by-label/nixos"; # Replace with your actual root partition
-        fsType = "ext4"; # Replace with your file system type
+        device = "/dev/disk/by-label/nixos"; # Replace with your root partition's device label.
+        fsType = "ext4"; # Filesystem type, e.g., ext4, xfs, etc.
     };
 
+    # GRUB bootloader configuration.
     boot.loader.grub = {
-        enable = true;
-        device = "/dev/sda"; # Replace with your actual boot device
+        enable = true; # Enable GRUB bootloader.
+        device = "/dev/sda"; # Replace with the device where GRUB should be installed, typically the boot drive.
     };
 
     # Network configuration
-    networking.hostName = "coldnixos";
-    networking.networkmanager.enable = true; # Enable networking features
+    networking.hostName = "coldnixos"; # The hostname for this machine.
+    networking.networkmanager.enable = true; # Enable NetworkManager for network configuration.
 
-    # Enable audio
-    sound.enable = true;
-    hardware.pulseaudio.enable = false;
+    # Audio configuration
+    sound.enable = true; # Enable sound.
+    hardware.pulseaudio.enable = false; # Disable PulseAudio (superseded by PipeWire).
     services.pipewire = {
-        enable = true;
+        enable = true; # Enable PipeWire for audio.
     };
 
-    # Enable bluetooth
-    hardware.bluetooth.enable = true;
+    # Bluetooth configuration
+    hardware.bluetooth.enable = true; # Enable Bluetooth support.
 
-    # Enable using printers and scanners
-    services.printing.enable = true;
-    services.saned.enable = true;
+    # Printer and scanner support
+    services.printing.enable = true; # Enable printing system.
+    services.saned.enable = true; # Enable scanner support.
 
-    # Enable touchpad (if on laptop)
-    services.xserver.libinput.enable = true;
+    # Touchpad support (useful for laptops)
+    services.xserver.libinput.enable = true; # Enable libinput for touchpad support.
     
-    # Enable a graphics driver (choose needed or leave all to use on any system)
-    services.xserver.videoDrivers = [ "nouveau" "amdgpu" "intel" "vesa"];
+    # Graphics drivers
+    services.xserver.videoDrivers = [ "nouveau" "amdgpu" "intel" "vesa"]; # List of graphics drivers to support various GPUs.
 
-    # Filesystem (enable extra filesystem support if needed)
-    boot.initrd.availableKernelModules = [ "xfs" "ntfs" "btrfs" "vfat" "ext4"];
-    boot.kernelModules = [ "kvm-intel" "kvm-amd" "acpi_call" ];
+    # Kernel modules for filesystem and virtualization
+    boot.initrd.availableKernelModules = [ "xfs" "ntfs" "btrfs" "vfat" "ext4"]; # Filesystem modules for initial ramdisk.
+    boot.kernelModules = [ "kvm-intel" "kvm-amd" "acpi_call" ]; # Modules for virtualization and power management.
 
     # CPU microcode updates
-    hardware.cpu.intel.updateMicrocode = true;
-    hardware.cpu.amd.updateMicrocode = true;
+    hardware.cpu.intel.updateMicrocode = true; # Update microcode for Intel CPUs.
+    hardware.cpu.amd.updateMicrocode = true; # Update microcode for AMD CPUs.
 
-    # Enable Hyprland (Wayland compositor) from nixpkgs
-    programs.hyprland.enable = true;
+    # Wayland compositor
+    programs.hyprland.enable = true; # Enable Hyprland, a Wayland compositor.
 
-    # Create user/s
+    # User configuration
     users.users.erik = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ]; # Enables sudo for the user
-        home = "/home/erik";
-        createHome = true;
-        shell = pkgs.bash;
+        isNormalUser = true; # Specify that 'erik' is a regular user, not a system user.
+        extraGroups = [ "wheel" ]; # Add 'erik' to 'wheel' group for sudo access.
+        home = "/home/erik"; # Home directory path.
+        createHome = true; # Ensure the home directory is created.
+        shell = pkgs.bash; # User's shell, here set to Bash.
     };
 
-    # System locale
-    i18n.defaultLocale = "en_US.UTF-8";
-    time.timeZone = "Europe/Zagreb";
+    # Locale and timezone configuration
+    i18n.defaultLocale = "en_US.UTF-8"; # Default system locale.
+    time.timeZone = "Europe/Zagreb"; # System timezone.
 
-    # Packages to install
+    # System packages
     environment.systemPackages = with pkgs; [
-        wget
-        git
-        neovim
-        kitty
-        direnv
-        firefox
+        wget # A utility for non-interactive download of files from the Web.
+        git # Distributed version control system.
+        neovim # Vim-fork focused on extensibility and usability.
+        kitty # A modern, hackable, featureful, OpenGL-based terminal emulator.
+        direnv # An environment switcher for the shell.
+        firefox # Web browser.
     ];
 
-    # Fonts
+    # Font configuration
     fonts.fonts = with pkgs; [
-        ubuntu_font_family
-        nerdfonts
+        ubuntu_font_family # Ubuntu font family.
+        nerdfonts # Nerd Fonts collection.
     ];
 
-    # Enable Flakes
+    # Nix Flakes configuration
     nix = {
-        package = pkgs.nixFlakes;
-        extraOptions = "experimental-features = nix-command flakes";
+        package = pkgs.nixFlakes; # Set the Nix package to Nix with Flakes support.
+        extraOptions = "experimental-features = nix-command flakes"; # Enable experimental features for Flakes.
     };
 
     # Environment variables
-    environment.variables.MOZ_ENABLE_WAYLAND = "1";
-
+    environment.variables.MOZ_ENABLE_WAYLAND = "1"; # Enable Wayland support in Firefox.
 }
