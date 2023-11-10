@@ -21,7 +21,7 @@
 
     # Enable using printers and scanners
     services.printing.enable = true;
-    services.sane.enable = true;
+    services.saned.enable = true;
 
     # Enable touchpad (if on laptop)
     services.xserver.libinput.enable = true;
