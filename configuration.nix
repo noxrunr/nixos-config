@@ -18,7 +18,6 @@
 
     # Enable bluetooth
     hardware.bluetooth.enable = true;
-    services.bluetooth.bluez.enable = true;
 
     # Enable using printers and scanners
     services.printing.enable = true;
