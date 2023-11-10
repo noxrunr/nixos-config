@@ -12,7 +12,9 @@
     # Enable audio
     sound.enable = true;
     hardware.pulseaudio.enable = false;
-    hardware.pipewire.enable = true;
+    services.pipewire  = {
+        enable: true;
+    };
 
     # Enable bluetooth
     hardware.bluetooth.enable = true;
