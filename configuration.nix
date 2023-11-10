@@ -77,7 +77,7 @@
     # Fonts
     fonts.fonts = with pkgs; [
         ubuntu_font_family
-        (nerdfonts.override { fonts = [ "Cartograph" "B612Mono" "Maple" ]; })
+        nerdfonts
     ];
 
     # Enable Flakes
