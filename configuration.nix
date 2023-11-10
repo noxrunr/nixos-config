@@ -4,6 +4,8 @@
 
     # imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal> ];
 
+    system.stateVersion = "23.05"; # Adjust according to your NixOS version
+
     fileSystems."/" = {
         device = "/dev/disk/by-label/nixos"; # Replace with your actual root partition
         fsType = "ext4"; # Replace with your file system type
@@ -11,7 +13,6 @@
 
     boot.loader.grub = {
         enable = true;
-        version = 2;
         device = "/dev/sda"; # Replace with your actual boot device
     };
 
