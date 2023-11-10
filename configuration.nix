@@ -4,10 +4,20 @@
 
     # imports = [ <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal> ];
 
+    fileSystems."/" = {
+        device = "/dev/disk/by-label/nixos"; # Replace with your actual root partition
+        fsType = "ext4"; # Replace with your file system type
+    };
+
+    boot.loader.grub = {
+        enable = true;
+        version = 2;
+        device = "/dev/sda"; # Replace with your actual boot device
+    };
+
     # Network configuration
     networking.hostName = "coldnixos";
     networking.networkmanager.enable = true; # Enable networking features
-    networking.wireless.enable = true;
 
     # Enable audio
     sound.enable = true;
@@ -30,7 +40,7 @@
     services.xserver.videoDrivers = [ "nouveau" "amdgpu" "intel" "vesa"];
 
     # Filesystem (enable extra filesystem support if needed)
-    boot.initrd.availableKernelModules = [ "xfs" "ntfs" "btrfs" "vfat" ];
+    boot.initrd.availableKernelModules = [ "xfs" "ntfs" "btrfs" "vfat" "ext4"];
     boot.kernelModules = [ "kvm-intel" "kvm-amd" "acpi_call" ];
 
     # CPU microcode updates
@@ -59,6 +69,7 @@
         git
         neovim
         kitty
+        direnv
         vscode
         firefox
     ];
