@@ -57,6 +57,7 @@
         wget
         git
         neovim
+        kitty
         vscode
         firefox
     ];
@@ -73,5 +74,7 @@
         extraOptions = "experimental-features = nix-command flakes";
     };
 
+    # Environment variables
+    environment.variables.MOZ_ENABLE_WAYLAND = "1";
 
 }
