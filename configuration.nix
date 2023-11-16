@@ -23,12 +23,12 @@
     # Audio configuration
     sound.enable = true; # Enable sound.
     hardware.pulseaudio.enable = false; # Disable PulseAudio (superseded by PipeWire).
-    security.rtkit.enable = true;
+    security.rtkit.enable = true; # Enable RealtimeKit for managing real-time priorities for user processes.
     services.pipewire = {
         enable = true; # Enable PipeWire for audio.
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        jack.enable = true;
+        alsa.enable = true; # Enable ALSA support in PipeWire for compatibility.
+        alsa.support32Bit = true; # Enable 32-bit ALSA support.
+        jack.enable = true; # Enable JACK support in PipeWire.
     };
 
     # Bluetooth configuration
@@ -41,34 +41,36 @@
     # Touchpad support (useful for laptops)
     services.xserver.libinput.enable = true; # Enable libinput for touchpad support.
     
-    # Graphics drivers "nouveau" "amdgpu" "intel" "vesa"
-    services.xserver.videoDrivers = ["intel"]; # List of graphics drivers to support various GPUs.
+    # Graphics drivers configuration
+    services.xserver.videoDrivers = ["intel"]; # Use Intel video drivers.
 
-    # Kernel modules for filesystem and virtualization "xfs" "btrfs" "vfat" "ext4"
-    boot.initrd.availableKernelModules = ["ext4"]; # Filesystem modules for initial ramdisk.
-    boot.kernelModules = ["kvm-intel"]; # Modules for virtualization and power management. "kvm-intel" "kvm-amd" "acpi_call" 
+    # Kernel modules for filesystem and virtualization
+    boot.initrd.availableKernelModules = ["ext4"]; # Include ext4 module in initial ramdisk.
+    boot.kernelModules = ["kvm-intel"]; # Include Intel KVM module for virtualization.
 
     # CPU microcode updates
     hardware.cpu.intel.updateMicrocode = true; # Update microcode for Intel CPUs.
-    hardware.cpu.amd.updateMicrocode = true; # Update microcode for AMD CPUs.
+    hardware.cpu.amd.updateMicrocode = true; # Update microcode for AMD CPUs (may not be necessary if you're only using Intel CPUs).
 
     # Wayland compositor
     programs.hyprland = {
         enable = true; # Enable Hyprland, a Wayland compositor.
-        xwayland.enable = true;
+        xwayland.enable = true; # Enable XWayland for legacy X11 application support.
     };
 
+    # Additional environment variables
     environment.sessionVariables = {
-        WLR_NO_HARDWARE_CURSORS = "1";
-        NIXOS_OZONE_WL = "1";
+        WLR_NO_HARDWARE_CURSORS = "1"; # Disables hardware cursors in Wayland.
+        NIXOS_OZONE_WL = "1"; # Environment variable specific to Wayland (purpose not clearly specified).
     };
 
+    # Enable XDG portals for desktop integration in Wayland
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Include GTK portals.
 
     # User configuration
     users.users.erik = {
-        isNormalUser = true; # Specify that 'erik' is a regular user, not a system user.
+        isNormalUser = true; # Specify 'erik' as a regular user.
         extraGroups = [ "wheel" ]; # Add 'erik' to 'wheel' group for sudo access.
         home = "/home/erik"; # Home directory path.
         createHome = true; # Ensure the home directory is created.
@@ -81,22 +83,22 @@
     
     # System packages
     environment.systemPackages = with pkgs; [
-        wget # A utility for non-interactive download of files from the Web.
+        wget # Utility for non-interactive download of files from the Web.
         git # Distributed version control system.
         neovim # Vim-fork focused on extensibility and usability.
         kitty # A modern, hackable, featureful, OpenGL-based terminal emulator.
         direnv # An environment switcher for the shell.
         firefox # Web browser.
-        ntfs3g # NTFS read-write support driver
-        waybar
-        dunst
-        libnotify
-        rofi-wayland
+        ntfs3g # NTFS read-write support driver.
+        waybar # Highly customizable Wayland bar for Sway and Wlroots based compositors.
+        dunst # Lightweight and customizable notification daemon.
+        libnotify # Library for sending desktop notifications.
+        rofi-wayland # A window switcher, application launcher, and dmenu replacement for Wayland.
         (pkgs.waybar.overrideAttrs (oldAttrs: {
-                mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+                mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; # Custom override for Waybar with experimental features.
             })
         )
-        swww
+        swww # Efficient animated wallpaper daemon for wayland, controlled at runtime
     ];
 
     # Font configuration
@@ -105,9 +107,10 @@
         nerdfonts # Nerd Fonts collection.
     ];
 
+    # Console configuration
     console = {
-        font = "Lat2-Terminus16";
-        keyMap = "us";
+        font = "Lat2-Terminus16"; # Console font.
+        keyMap = "us"; # Keyboard layout for the console.
     };
 
     # Nix Flakes configuration
