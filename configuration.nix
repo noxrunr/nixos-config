@@ -13,7 +13,7 @@
     # GRUB bootloader configuration.
     boot.loader.grub = {
         enable = true; # Enable GRUB bootloader.
-        device = "/dev/sda1"; # Replace with the device where GRUB should be installed, typically the boot drive.
+        device = "/dev/sda"; # Replace with the device where GRUB should be installed, typically the boot drive.
     };
 
     # Network configuration
@@ -63,7 +63,7 @@
     # Locale and timezone configuration
     i18n.defaultLocale = "en_US.UTF-8"; # Default system locale.
     time.timeZone = "Europe/Zagreb"; # System timezone.
-
+    
     # System packages
     environment.systemPackages = with pkgs; [
         wget # A utility for non-interactive download of files from the Web.
@@ -80,6 +80,11 @@
         ubuntu_font_family # Ubuntu font family.
         nerdfonts # Nerd Fonts collection.
     ];
+
+    console = {
+        font = "Lat2-Terminus16";
+        keyMap = "us";
+    };
 
     # Nix Flakes configuration
     nix = {
