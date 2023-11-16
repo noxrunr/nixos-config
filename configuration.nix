@@ -23,8 +23,12 @@
     # Audio configuration
     sound.enable = true; # Enable sound.
     hardware.pulseaudio.enable = false; # Disable PulseAudio (superseded by PipeWire).
+    security.rtkit.enable = true;
     services.pipewire = {
         enable = true; # Enable PipeWire for audio.
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        jack.enable = true;
     };
 
     # Bluetooth configuration
@@ -49,7 +53,18 @@
     hardware.cpu.amd.updateMicrocode = true; # Update microcode for AMD CPUs.
 
     # Wayland compositor
-    programs.hyprland.enable = true; # Enable Hyprland, a Wayland compositor.
+    programs.hyprland = {
+        enable = true; # Enable Hyprland, a Wayland compositor.
+        xwayland.enable = true;
+    };
+
+    environment.sessionVariables = {
+        WLR_NO_HARDWARE_CURSORS = "1";
+        NIXOS_OZONE_WL = "1";
+    };
+
+    xdg.portal.enable = true;
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     # User configuration
     users.users.erik = {
@@ -73,6 +88,15 @@
         direnv # An environment switcher for the shell.
         firefox # Web browser.
         ntfs3g # NTFS read-write support driver
+        waybar
+        dunst
+        libnotify
+        rofi-wayland
+        (pkgs.waybar.overrideAttrs (oldAttrs: {
+                mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+            })
+        )
+        swww
     ];
 
     # Font configuration
