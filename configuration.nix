@@ -37,12 +37,12 @@
     # Touchpad support (useful for laptops)
     services.xserver.libinput.enable = true; # Enable libinput for touchpad support.
     
-    # Graphics drivers
-    services.xserver.videoDrivers = [ "nouveau" "amdgpu" "intel" "vesa"]; # List of graphics drivers to support various GPUs.
+    # Graphics drivers "nouveau" "amdgpu" "intel" "vesa"
+    services.xserver.videoDrivers = ["intel"]; # List of graphics drivers to support various GPUs.
 
-    # Kernel modules for filesystem and virtualization
-    boot.initrd.availableKernelModules = [ "xfs" "btrfs" "vfat" "ext4"]; # Filesystem modules for initial ramdisk.
-    boot.kernelModules = [ "kvm-intel" "kvm-amd" "acpi_call" ]; # Modules for virtualization and power management.
+    # Kernel modules for filesystem and virtualization "xfs" "btrfs" "vfat" "ext4"
+    boot.initrd.availableKernelModules = ["ext4"]; # Filesystem modules for initial ramdisk.
+    boot.kernelModules = ["kvm-intel"]; # Modules for virtualization and power management. "kvm-intel" "kvm-amd" "acpi_call" 
 
     # CPU microcode updates
     hardware.cpu.intel.updateMicrocode = true; # Update microcode for Intel CPUs.
