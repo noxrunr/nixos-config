@@ -17,7 +17,7 @@
     };
 
     # Network configuration
-    networking.hostName = "coldnixos"; # The hostname for this machine.
+    networking.hostName = "noxrunr"; # The hostname for this machine.
     networking.networkmanager.enable = true; # Enable NetworkManager for network management.
 
     # Additional environment variables
@@ -67,7 +67,7 @@
 
     # CPU microcode updates
     hardware.cpu.intel.updateMicrocode = true; # Update microcode for Intel CPUs.
-    hardware.cpu.amd.updateMicrocode = true; # Update microcode for AMD CPUs.
+    hardware.cpu.amd.updateMicrocode = false; # Update microcode for AMD CPUs.
 
     # Wayland compositor configuration
     programs.hyprland = {
@@ -76,10 +76,10 @@
     };
 
     # User configuration
-    users.users.erik = {
-        isNormalUser = true; # Specify 'erik' as a regular user.
+    users.users.noxrunr = {
+        isNormalUser = true; # Specify 'noxrunr' as a regular user.
         extraGroups = [ "wheel" ]; # Add 'erik' to 'wheel' group for sudo access.
-        home = "/home/erik"; # Home directory path.
+        home = "/home/noxrunr"; # Home directory path.
         createHome = true; # Ensure the home directory is created.
         shell = pkgs.bash; # User's shell, set to Bash.
     };
@@ -110,15 +110,8 @@
 
     # Font configuration
     fonts.fonts = with pkgs; [
-        ubuntu_font_family # Ubuntu font family.
         nerdfonts # Nerd Fonts collection.
     ];
-
-    # Console configuration
-    console = {
-        font = "Lat2-Terminus16"; # Console font.
-        keyMap = "us"; # Keyboard layout for the console.
-    };
 
     # Nix Flakes configuration
     nix = {
