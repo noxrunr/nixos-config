@@ -19,6 +19,19 @@
     # Network configuration
     networking.hostName = "nixos"; # The hostname for this machine.
     networking.networkmanager.enable = true; # Enable NetworkManager for network management.
+    networking.firewall.enable = true; # Enable firewall
+
+    system.autoUpgrade.enable = true; # Enable auto update
+    system.autoUpgrade.allowReboot = true;  # Optional: Allows the system to reboot if needed
+    system.autoUpgrade.dates = "weekly"; # Set auto upgrade to a weekly basis
+
+    services.openssh = {
+        enable = true;
+        permitRootLogin = "no";    # Disallow root login via SSH
+        passwordAuthentication = false;  # Disable password authentication
+        listenAddresses = [ { addr = "0.0.0.0"; port = 2222; } ];  # IMPORTANT: Change SSH port to something else
+        allowUsers = [ "noxrunr" ];  # Allow only 'erik' to use SSH (example)
+    };
 
     # Additional environment variables
     environment.sessionVariables = {
