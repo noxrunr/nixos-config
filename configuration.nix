@@ -96,7 +96,6 @@
         kitty # Modern, hackable, featureful, OpenGL-based terminal emulator.
         direnv # Environment switcher for the shell.
         firefox # Web browser.
-        ntfs3g # NTFS read-write support driver.
         waybar # Highly customizable Wayland bar for Sway and Wlroots based compositors.
         dunst # Lightweight and customizable notification daemon.
         libnotify # Library for sending desktop notifications.
@@ -105,7 +104,6 @@
                 mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; # Custom override for Waybar with experimental features.
             })
         )
-        swww # Efficient animated wallpaper daemon for Wayland, controlled at runtime.
     ];
 
     # Font configuration
