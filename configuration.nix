@@ -17,7 +17,7 @@
     };
 
     # Network configuration
-    networking.hostName = "noxrunr"; # The hostname for this machine.
+    networking.hostName = "nixos"; # The hostname for this machine.
     networking.networkmanager.enable = true; # Enable NetworkManager for network management.
 
     # Additional environment variables
@@ -78,7 +78,7 @@
     # User configuration
     users.users.noxrunr = {
         isNormalUser = true; # Specify 'noxrunr' as a regular user.
-        extraGroups = [ "wheel" ]; # Add 'erik' to 'wheel' group for sudo access.
+        extraGroups = [ "wheel" ]; # Add 'noxrunr' to 'wheel' group for sudo access.
         home = "/home/noxrunr"; # Home directory path.
         createHome = true; # Ensure the home directory is created.
         shell = pkgs.bash; # User's shell, set to Bash.
